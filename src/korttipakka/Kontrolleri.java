@@ -23,6 +23,7 @@ public class Kontrolleri {
 
     public Parent getPeliAlue() {
 
+        // ******** pelialueen osat *************
         BorderPane paaAsettelu = new BorderPane();
         BorderPane ylaOsa = new BorderPane();
         BorderPane keskiOsa = new BorderPane();
@@ -34,8 +35,7 @@ public class Kontrolleri {
 
 
 
-
-        // ********* kortit ************
+        // ********* korttien pohjat ************
         Pane kortti1 = new Pane();
         Pane kortti2 = new Pane();
         Pane kortti3 = new Pane();
@@ -43,12 +43,9 @@ public class Kontrolleri {
         Pane kortti5 = new Pane();
 
 
-
         kortit.getChildren().addAll(kortti1, kortti2, kortti3, kortti4, kortti5);
         kortit.setSpacing(10);
         keskiOsa.setCenter(kortit);
-
-
 
 
         // *******************************
@@ -73,6 +70,10 @@ public class Kontrolleri {
 
         jaaKortit.setOnAction(e -> {
 
+            // testitul
+            kasi.getValitut().stream().forEach(arvo -> System.out.println(arvo));
+
+
             // nollaus
             kortti1.setStyle(vihreaReuna);
             kortti2.setStyle(vihreaReuna);
@@ -91,36 +92,28 @@ public class Kontrolleri {
 
                 pakka.sekoitaPakka();
 
-                if (kortti1.getStyle().equals(punainenReuna)) {
-                    pakka.lisaaKortti(kasi.lyoKortti(kasi.getKortit().get(0)));
+                for (int i = 0; i < 5; i++)
                     kasi.nostaKortti(pakka.jaaKortti());
-                    kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
 
-                }
-
-
-                else {
-                    // ei yhtäkään valittuna, vaihdetaan kaikki
-                    for (int i = 0; i < 5; i++)
-                        kasi.nostaKortti(pakka.jaaKortti());
-
-                    kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
-                    kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
-                    kortti3.getChildren().add(kasi.getKortit().get(2).getKuva());
-                    kortti4.getChildren().add(kasi.getKortit().get(3).getKuva());
-                    kortti5.getChildren().add(kasi.getKortit().get(4).getKuva());
-                }
+                kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
+                kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
+                kortti3.getChildren().add(kasi.getKortit().get(2).getKuva());
+                kortti4.getChildren().add(kasi.getKortit().get(3).getKuva());
+                kortti5.getChildren().add(kasi.getKortit().get(4).getKuva());
 
             }
 
             else if (jaaKortit.getText().equals("Vaihda valitut kortit")) {
                 jaaKortit.setText("Jaa uusi käsi");
 
+
                 for (int i = 0; i < 5; i++)
                     pakka.lisaaKortti(kasi.lyoEkaKortti());
 
+
                 tekstiKentta.clear();
                 pakka.sekoitaPakka();
+                kasi.nollaaValitut();
 
             }
 
@@ -131,33 +124,54 @@ public class Kontrolleri {
         kortti1.setOnMouseClicked(e -> {
             if (kortti1.getStyle().equals(vihreaReuna)) {
                 kortti1.setStyle(punainenReuna);
+                kasi.getKortit().get(0).setValittu(true);
             }
-            else if (kortti1.getStyle().equals(punainenReuna))
+            else if (kortti1.getStyle().equals(punainenReuna)) {
                 kortti1.setStyle(vihreaReuna);
+                kasi.getKortit().get(0).setValittu(false);
+            }
         });
         kortti2.setOnMouseClicked(e -> {
-            if (kortti2.getStyle().equals(vihreaReuna))
+            if (kortti2.getStyle().equals(vihreaReuna)) {
                 kortti2.setStyle(punainenReuna);
-            else if (kortti2.getStyle().equals(punainenReuna))
+                kasi.getKortit().get(1).setValittu(true);
+            }
+            else if (kortti2.getStyle().equals(punainenReuna)) {
                 kortti2.setStyle(vihreaReuna);
+                kasi.getKortit().get(1).setValittu(false);
+            }
         });
         kortti3.setOnMouseClicked(e -> {
-            if (kortti3.getStyle().equals(vihreaReuna))
+            if (kortti3.getStyle().equals(vihreaReuna)) {
                 kortti3.setStyle(punainenReuna);
-            else if (kortti3.getStyle().equals(punainenReuna))
+                kasi.getKortit().get(2).setValittu(true);
+
+            }
+            else if (kortti3.getStyle().equals(punainenReuna)) {
                 kortti3.setStyle(vihreaReuna);
+                kasi.getKortit().get(2).setValittu(false);
+            }
         });
         kortti4.setOnMouseClicked(e -> {
-            if (kortti4.getStyle().equals(vihreaReuna))
+            if (kortti4.getStyle().equals(vihreaReuna)) {
                 kortti4.setStyle(punainenReuna);
-            else if (kortti4.getStyle().equals(punainenReuna))
+                kasi.getKortit().get(3).setValittu(true);
+
+            }
+            else if (kortti4.getStyle().equals(punainenReuna)) {
                 kortti4.setStyle(vihreaReuna);
+                kasi.getKortit().get(3).setValittu(false);
+            }
         });
         kortti5.setOnMouseClicked(e -> {
-            if (kortti5.getStyle().equals(vihreaReuna))
+            if (kortti5.getStyle().equals(vihreaReuna)) {
                 kortti5.setStyle(punainenReuna);
-            else if (kortti5.getStyle().equals(punainenReuna))
+                kasi.getKortit().get(4).setValittu(true);
+            }
+            else if (kortti5.getStyle().equals(punainenReuna)) {
                 kortti5.setStyle(vihreaReuna);
+                kasi.getKortit().get(4).setValittu(false);
+            }
         });
 
 

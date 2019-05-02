@@ -1,15 +1,19 @@
 package korttipakka;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Käsi implements Arvioitava {
 
     private List<Kortti> kasi;
+    private List<Kortti> valitut;
     private int ylaRaja;
+
 
     public Käsi(int ylaraja) {
         this.kasi = new ArrayList<>();
+        this.valitut = new ArrayList<>();
         this.ylaRaja = ylaraja;
     }
 
@@ -47,6 +51,16 @@ public class Käsi implements Arvioitava {
     }
 
     public List<Kortti> getKortit() { return kasi; }
+
+
+    public List<Kortti> getValitut() {
+        kasi.stream().filter(kortti -> kortti.getValittu() == true).forEach(kortti -> valitut.add(kortti));
+        return valitut;
+    }
+
+    public void nollaaValitut() {
+        valitut.clear();
+    }
 
 
     // ässien arvot pitää voida asettaa luokan ulkopuolelta

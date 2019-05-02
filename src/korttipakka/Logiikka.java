@@ -10,13 +10,6 @@ public class Logiikka {
     private ArvonTarkistaja arvonTarkistaja;
     private MaanTarkistaja maanTarkistaja;
     private Käsi kasi;
-    private List<Integer> indeksit;
-
-    private boolean valittu1;
-    private boolean valittu2;
-    private boolean valittu3;
-    private boolean valittu4;
-    private boolean valittu5;
 
     private boolean eiMitaan;
     private boolean pari;
@@ -34,9 +27,7 @@ public class Logiikka {
         this.kasi = kasi;
     }
 
-    /*public List<Integer> valitutKortit() {
 
-    }*/
 
     public String tarkistaKasi() {
 
@@ -152,7 +143,7 @@ public class Logiikka {
             return "Ei mitään.";
 
 
-        return "Tapahtui virhe eikä käden arvoa voitu laskea.";
+        return "Tapahtui virhe, käden arvoa voitu laskea.";
 
     }
 

@@ -9,23 +9,24 @@ public class Kortti implements Arvioitava {
     private Maa maa;
     private int assanArvo;
     private ImageView kuva;
+    private boolean valittu;
 
     public Kortti(Maa maa, Arvo arvo) {
         this.maa = maa;
         this.arvo = arvo;
         this.assanArvo = 1; // ässän oletusarvo
+        this.valittu = false;
     }
 
 
-    // Voisiko kortin reunat määrittää punaiseksi täällä?
-
     public void setKuva(Image kuvaTiedosto) {
-        this.kuva = new ImageView(kuvaTiedosto);
 
+        this.kuva = new ImageView(kuvaTiedosto);
         kuva.setFitWidth(120);
         kuva.setPreserveRatio(true);
         kuva.setSmooth(true);
         kuva.setCache(true);
+
 
     }
 
@@ -44,6 +45,10 @@ public class Kortti implements Arvioitava {
     public Maa getMaa() {
         return maa;
     }
+
+    public void setValittu(boolean arvo) { valittu = arvo; }
+
+    public boolean getValittu() { return valittu; }
 
     public int annaArvo() {
 
