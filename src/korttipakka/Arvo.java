@@ -1,0 +1,6 @@
+package korttipakka;
+
+public enum Arvo {
+
+    KAKKONEN, KOLMONEN, NELONEN, VIITONEN, KUUTONEN, SEISKA, KASI, YSI, KYMPPI, JATKA, AKKA, KUNKKU, ASSA;
+}
