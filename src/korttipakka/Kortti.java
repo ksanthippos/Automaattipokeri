@@ -16,6 +16,9 @@ public class Kortti implements Arvioitava {
         this.assanArvo = 1; // ässän oletusarvo
     }
 
+
+    // Voisiko kortin reunat määrittää punaiseksi täällä?
+
     public void setKuva(Image kuvaTiedosto) {
         this.kuva = new ImageView(kuvaTiedosto);
 
