@@ -31,6 +31,15 @@ public class Logiikka {
 
     public String tarkistaKasi() {
 
+        eiMitaan = false;
+        pari = false;
+        kaksiParia = false;
+        kolmoset = false;
+        neloset = false;
+        taysKasi = false;
+        suora = false;
+        vari = false;
+
         // jos kädessä kuningas, niin ässän arvo 14
         for (int i = 0; i < kasi.getKoko(); i++) {
             if (kasi.getKortit().get(i).getArvo() == Arvo.KUNKKU)
