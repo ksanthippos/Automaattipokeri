@@ -169,6 +169,8 @@ public class Logiikka {
          * */
 
         if (pari) {
+            if (krediitit == 0)
+                return "Pari.\nPeli loppui!";
             return "Pari.\nEt voittanut mitään.";
         }
         else if (kaksiParia) {

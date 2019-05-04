@@ -33,7 +33,7 @@ public class Kontrolleri {
         HBox kortit = new HBox();
         HBox napit = new HBox();
         HBox ylaTekstit = new HBox();
-        String punainenReuna = "-fx-border-color: red; -fx-border-width: 0 2 2 0";
+        String punainenReuna = "-fx-border-color: yellow; -fx-border-width: 0 2 2 0";
         String vihreaReuna = "-fx-border-color: green;";
 
 
@@ -68,7 +68,7 @@ public class Kontrolleri {
         nappiVaihda.setText("Lukitse ja vaihda");
         nappiPanos.setText("Panos");
         napit.getChildren().addAll(nappiJaa, nappiTarkista, nappiVaihda, nappiPanos);
-        napit.setSpacing(30);
+        napit.setSpacing(33);
 
         nappiTarkista.setDisable(true);
         nappiVaihda.setDisable(true);
