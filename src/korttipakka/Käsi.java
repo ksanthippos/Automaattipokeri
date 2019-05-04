@@ -52,9 +52,14 @@ public class Käsi implements Arvioitava {
 
     public List<Kortti> getKortit() { return kasi; }
 
+    public void lisaaValitut() {
+        for (Kortti kortti: kasi) {
+            if (kortti.getValittu())
+                valitut.add(kortti);
+        }
+    }
 
     public List<Kortti> getValitut() {
-        kasi.stream().filter(kortti -> kortti.getValittu() == true).forEach(kortti -> valitut.add(kortti));
         return valitut;
     }
 

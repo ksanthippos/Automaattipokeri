@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Kontrolleri {
@@ -65,9 +66,9 @@ public class Kontrolleri {
         Button jaaKortit = new Button();
         Button tarkistaKasi = new Button();
         Button vaihdaKortit = new Button();
-        jaaKortit.setText("Uusi käsi");
+        jaaKortit.setText("Jaa uusi käsi");
         tarkistaKasi.setText("Tarkista käsi");
-        vaihdaKortit.setText("Vaihda valitut");
+        vaihdaKortit.setText("Lukitse valitut ja vaihda");
         napit.getChildren().addAll(jaaKortit, tarkistaKasi, vaihdaKortit);
         napit.setSpacing(20);
 
@@ -80,85 +81,6 @@ public class Kontrolleri {
 
         // ************************************
 
-        // ******* toiminnallisuus *************
-
-        //jaaKortit.setText("Jaa uusi käsi");
-
-/*        jaaKortit.setOnAction(e -> {
-
-            // reunojen nollaus
-            kortti1.setStyle(vihreaReuna);
-            kortti2.setStyle(vihreaReuna);
-            kortti3.setStyle(vihreaReuna);
-            kortti4.setStyle(vihreaReuna);
-            kortti5.setStyle(vihreaReuna);
-
-
-            kortti1.getChildren().clear();
-            kortti2.getChildren().clear();
-            kortti3.getChildren().clear();
-            kortti4.getChildren().clear();
-            kortti5.getChildren().clear();
-
-            // nappi vaihtaa kortit
-            if (jaaKortit.getText().equals("Jaa uusi käsi")) {
-                jaaKortit.setText("Vaihda valitut kortit");
-
-                pakka.sekoitaPakka();
-
-                // ei valittu mitään
-                if (kasi.getValitut().size() == 0) {
-
-                    for (int i = 0; i < 5; i++)
-                        kasi.nostaKortti(pakka.jaaKortti());
-
-                    kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
-                    kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
-                    kortti3.getChildren().add(kasi.getKortit().get(2).getKuva());
-                    kortti4.getChildren().add(kasi.getKortit().get(3).getKuva());
-                    kortti5.getChildren().add(kasi.getKortit().get(4).getKuva());
-                }
-
-                else {
-
-                    kasi.getKortit().clear();
-                    for (int i = 0; i < kasi.getValitut().size(); i++)
-                        kasi.nostaKortti(kasi.getValitut().get(i));
-
-                    for (int i = 0; i < kasi.getValitut().size() - kasi.getKortit().size(); i++)
-                        kasi.nostaKortti(pakka.jaaKortti());
-
-
-                    kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
-                    kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
-                    kortti3.getChildren().add(kasi.getKortit().get(2).getKuva());
-                    kortti4.getChildren().add(kasi.getKortit().get(3).getKuva());
-                    kortti5.getChildren().add(kasi.getKortit().get(4).getKuva());
-
-                }
-
-                // käden tarkistaminen
-                tekstiKentta.appendText(logiikka.tarkistaKasi());
-
-            }
-
-            // nappi jakaa kokonaan uuden käden
-            else if (jaaKortit.getText().equals("Vaihda valitut kortit")) {
-
-                // käden vaihtaminen uuteen
-                jaaKortit.setText("Jaa uusi käsi");
-
-                for (int i = 0; i < 5; i++)
-                    pakka.lisaaKortti(kasi.lyoEkaKortti());
-
-                tekstiKentta.clear();
-                pakka.sekoitaPakka();
-                kasi.getKortit().clear();
-                kasi.nollaaValitut();
-
-            }
-
-        });*/
 
 
         // ***********************************
@@ -167,9 +89,12 @@ public class Kontrolleri {
 
         jaaKortit.setOnAction(e -> {
 
+            tekstiKentta.clear();
             jaaKortit.setDisable(true);
             vaihdaKortit.setDisable(false);
             tarkistaKasi.setDisable(false);
+
+
 
             // reunojen nollaus
             kortti1.setStyle(vihreaReuna);
@@ -189,6 +114,8 @@ public class Kontrolleri {
 
             for (int i = 0; i < 5; i++)
                 kasi.nostaKortti(pakka.jaaKortti());
+
+
 
             kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
             kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
@@ -218,12 +145,43 @@ public class Kontrolleri {
 
         vaihdaKortit.setOnAction(e -> {
 
-            // if kädestä kortti 1 valittu --> lukitaan jotenkin Pane kortti1 ja jaetaan muut
+            vaihdaKortit.setDisable(true);
+            jaaKortit.setDisable(true);
+            tarkistaKasi.setDisable(false);
+
+
+            // reunojen nollaus
+            kortti1.setStyle(vihreaReuna);
+            kortti2.setStyle(vihreaReuna);
+            kortti3.setStyle(vihreaReuna);
+            kortti4.setStyle(vihreaReuna);
+            kortti5.setStyle(vihreaReuna);
+
+            kortti1.getChildren().clear();
+            kortti2.getChildren().clear();
+            kortti3.getChildren().clear();
+            kortti4.getChildren().clear();
+            kortti5.getChildren().clear();
+
+
+            // tyhjennetään käsi, lisätään sinne lukitut kortit ja täytetään loput pakasta
+            kasi.lisaaValitut();
+            kasi.getKortit().clear();
+            for (Kortti kortti: kasi.getValitut())
+                kasi.nostaKortti(kortti);
+
+            while (kasi.getKortit().size() < 5)
+                kasi.nostaKortti(pakka.jaaKortti());
+
+
+            kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
+            kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
+            kortti3.getChildren().add(kasi.getKortit().get(2).getKuva());
+            kortti4.getChildren().add(kasi.getKortit().get(3).getKuva());
+            kortti5.getChildren().add(kasi.getKortit().get(4).getKuva());
 
 
         });
-
-
 
 
 

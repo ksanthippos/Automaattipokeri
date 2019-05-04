@@ -1,5 +1,8 @@
 package korttipakka;
 
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -27,8 +30,14 @@ public class Kortti implements Arvioitava {
         kuva.setSmooth(true);
         kuva.setCache(true);
 
-
     }
+
+/*    public void merkkaa(boolean arvo) {
+        if (arvo)
+            kuva.setOpacity(0.7);
+
+        kuva.setOpacity(1.0);
+    }*/
 
     public ImageView getKuva() {
         return kuva;
