@@ -24,16 +24,6 @@ public class Käsi implements Arvioitava {
         kasi.add(kortti);
     }
 
-    public Kortti lyoKortti(Kortti kortti) {
-
-        Kortti lyotava = kortti;
-        if (kasi.contains(kortti)) {
-            kasi.remove(kortti);
-            return lyotava;
-        }
-
-        return null;
-    }
 
     public Kortti lyoEkaKortti() {
 
@@ -93,18 +83,7 @@ public class Käsi implements Arvioitava {
         return kortit.toString();
     }
 
-    // Tarviikohan näitä mihinkään?
 
-    /*    public Kortti lyoSatunnainenKortti() {
-
-        Collections.shuffle(kasi);
-        Kortti lyotava = kasi.get(0);
-        kasi.remove(kasi.get(0));
-        return lyotava;
-    }
-
-
-    }*/
 
 
 

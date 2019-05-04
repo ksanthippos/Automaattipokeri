@@ -111,7 +111,7 @@ public class Logiikka {
         if (onSuora)
             suora = true;
 
-            // parit, kolmoset, neloset, täyskäsi
+        // parit, kolmoset, neloset, täyskäsi
         else if (samatArvot.size() == 2)
             pari = true;
         else if (samatArvot.size() == 3)

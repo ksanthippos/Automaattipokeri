@@ -1,8 +1,6 @@
 package korttipakka;
 
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Glow;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -32,12 +30,6 @@ public class Kortti implements Arvioitava {
 
     }
 
-    public void merkkaa(boolean arvo) {
-        if (arvo)
-            kuva.setOpacity(0.7);
-
-        kuva.setOpacity(1.0);
-    }
 
     public ImageView getKuva() {
         return kuva;
@@ -117,20 +109,4 @@ public class Kortti implements Arvioitava {
 
 
 
-
-
-    // Yksittäistä korttia ei tarvinne vertailla tästä luokasta käsin?
-/*    @Override
-    public int compareTo(Kortti kortti) {
-        if (this.annaArvo() == kortti.annaArvo())           // korttien arvot samoja
-            return 0;
-        else if (this.annaMaa() == kortti.annaMaa())        // maat samoja
-            return 0;
-
-        else
-            return this.annaArvo() - kortti.annaArvo();     // korttien arvot eivät samoja
-
-
-
-    }*/
 }
