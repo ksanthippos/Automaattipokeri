@@ -108,7 +108,7 @@ public class Kontrolleri {
             nappiVaihda.setDisable(false);
             nappiTarkista.setDisable(false);
             nappiPanos.setDisable(true);
-
+            kortit.setDisable(false);
 
             // reunojen nollaus
             kortti1.setStyle(vihreaReuna);
@@ -158,6 +158,7 @@ public class Kontrolleri {
             kasi.getKortit().clear();
             kasi.nollaaValitut();
 
+
             tekstiKrediitit.setText("Krediitit: " + logiikka.getKrediitit());
 
             if (logiikka.getKrediitit() <= 0) {
@@ -176,7 +177,7 @@ public class Kontrolleri {
             nappiVaihda.setDisable(true);
             nappiJaa.setDisable(true);
             nappiTarkista.setDisable(false);
-
+            kortit.setDisable(true);
 
             // reunojen nollaus
             kortti1.setStyle(vihreaReuna);

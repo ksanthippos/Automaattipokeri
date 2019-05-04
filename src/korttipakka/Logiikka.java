@@ -34,9 +34,9 @@ public class Logiikka {
 
     public void korotaPanosta() {
         if (panos == 5.0)
-            panos = 0.5;
+            panos = 0;
 
-        panos = panos + 0.5;
+        panos = panos + 1.0;
     }
 
     public double getPanos() {
@@ -154,11 +154,11 @@ public class Logiikka {
 
         kasi.setAssienArvot(1);     // resetoidaan ässien arvot oletukseksi
 
-        // tulokset
+        // tulosten käsittely
 
+        /* voittosummat:
 
-        /* perusarvot:
-         * pari 0.5
+         * pari ei voittoa
          * kaksi paria 1.0
          * kolmoset 2.0
          * neloset 3.0
@@ -169,12 +169,11 @@ public class Logiikka {
          * */
 
         if (pari) {
-            setKrediitit(1.0 * panos);
-            return "Pari.\nVoitit " + 1.0 * panos + " krediittiä!";
+            return "Pari.\nEt voittanut mitään.";
         }
         else if (kaksiParia) {
-            setKrediitit(1.5 * panos);
-            return "Kaksi paria.\nVoitit " + 1.5 * panos + " krediittiä!";
+            setKrediitit(1.0 * panos);
+            return "Kaksi paria.\nVoitit " + 1.0 * panos + " krediittiä!";
         }
         else if (kolmoset) {
             setKrediitit(2.0 * panos);
