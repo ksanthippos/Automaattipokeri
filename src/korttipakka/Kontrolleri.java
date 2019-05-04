@@ -33,7 +33,7 @@ public class Kontrolleri {
         HBox kortit = new HBox();
         HBox napit = new HBox();
         HBox ylaTekstit = new HBox();
-        String punainenReuna = "-fx-border-color: red;";
+        String punainenReuna = "-fx-border-color: red; -fx-border-width: 0 2 2 0";
         String vihreaReuna = "-fx-border-color: green;";
 
 
@@ -55,34 +55,36 @@ public class Kontrolleri {
 
         // ********** ylä- ja alaosa **********
         TextArea tekstiKentta = new TextArea();
-        tekstiKentta.setPrefSize(200, 20);
-        tekstiKentta.setFont(Font.font("Monospaced", 14));
+        tekstiKentta.setPrefSize(220, 25);
+        tekstiKentta.setFont(Font.font("Monospaced", 12));
 
 
-        Button jaaKortit = new Button();
-        Button tarkistaKasi = new Button();
-        Button vaihdaKortit = new Button();
-        jaaKortit.setText("Jaa uusi käsi");
-        tarkistaKasi.setText("Tarkista käsi");
-        vaihdaKortit.setText("Lukitse valitut ja vaihda");
-        napit.getChildren().addAll(jaaKortit, tarkistaKasi, vaihdaKortit);
+        Button nappiJaa = new Button();
+        Button nappiTarkista = new Button();
+        Button nappiVaihda = new Button();
+        Button nappiPanos = new Button();
+        nappiJaa.setText("Uusi käsi");
+        nappiTarkista.setText("Tarkista käsi");
+        nappiVaihda.setText("Lukitse ja vaihda");
+        nappiPanos.setText("Panos");
+        napit.getChildren().addAll(nappiJaa, nappiTarkista, nappiVaihda, nappiPanos);
         napit.setSpacing(30);
 
-        tarkistaKasi.setDisable(true);
-        vaihdaKortit.setDisable(true);
+        nappiTarkista.setDisable(true);
+        nappiVaihda.setDisable(true);
 
 
-        Label tekstiCredits = new Label();
-        tekstiCredits.setStyle("-fx-color: yellow;");
-        tekstiCredits.setText("Krediitit: 0");
-        tekstiCredits.setFont(Font.font("Monospaced", 18));
+        Label tekstiKrediitit = new Label();
+        tekstiKrediitit.setStyle("-fx-color: yellow;");
+        tekstiKrediitit.setText("Krediitit: 10.0");
+        tekstiKrediitit.setFont(Font.font("Monospaced", 18));
 
         Label tekstiPanos = new Label();
         tekstiPanos.setStyle("-fx-color: yellow;");
-        tekstiPanos.setText("Panos: 0");
+        tekstiPanos.setText("Panos: 1.0");
         tekstiPanos.setFont(Font.font("Monospaced", 18));
 
-        ylaTekstit.getChildren().addAll(tekstiCredits, tekstiPanos);
+        ylaTekstit.getChildren().addAll(tekstiKrediitit, tekstiPanos);
         ylaTekstit.setSpacing(50);
 
         alaOsa.setLeft(napit);
@@ -99,13 +101,13 @@ public class Kontrolleri {
         // erilliset napit eri toiminnoille
         // **********************************
 
-        jaaKortit.setOnAction(e -> {
+        nappiJaa.setOnAction(e -> {
 
             tekstiKentta.clear();
-            jaaKortit.setDisable(true);
-            vaihdaKortit.setDisable(false);
-            tarkistaKasi.setDisable(false);
-
+            nappiJaa.setDisable(true);
+            nappiVaihda.setDisable(false);
+            nappiTarkista.setDisable(false);
+            nappiPanos.setDisable(true);
 
 
             // reunojen nollaus
@@ -134,13 +136,17 @@ public class Kontrolleri {
             kortti4.getChildren().add(kasi.getKortit().get(3).getKuva());
             kortti5.getChildren().add(kasi.getKortit().get(4).getKuva());
 
+            logiikka.setKrediitit(-logiikka.getPanos());
+            tekstiKrediitit.setText("Krediitit: " + logiikka.getKrediitit());
+
         });
 
-        tarkistaKasi.setOnAction(e -> {
+        nappiTarkista.setOnAction(e -> {
 
-            vaihdaKortit.setDisable(true);
-            tarkistaKasi.setDisable(true);
-            jaaKortit.setDisable(false);
+            nappiVaihda.setDisable(true);
+            nappiTarkista.setDisable(true);
+            nappiJaa.setDisable(false);
+            nappiPanos.setDisable(false);
 
             // käden tarkistaminen
             tekstiKentta.appendText(logiikka.tarkistaKasi() + "\n");
@@ -152,13 +158,24 @@ public class Kontrolleri {
             kasi.getKortit().clear();
             kasi.nollaaValitut();
 
+            tekstiKrediitit.setText("Krediitit: " + logiikka.getKrediitit());
+
+            if (logiikka.getKrediitit() <= 0) {
+                tekstiKentta.appendText("Peli loppui!");
+                nappiVaihda.setDisable(true);
+                nappiTarkista.setDisable(true);
+                nappiJaa.setDisable(true);
+                nappiPanos.setDisable(true);
+            }
+
+
         });
 
-        vaihdaKortit.setOnAction(e -> {
+        nappiVaihda.setOnAction(e -> {
 
-            vaihdaKortit.setDisable(true);
-            jaaKortit.setDisable(true);
-            tarkistaKasi.setDisable(false);
+            nappiVaihda.setDisable(true);
+            nappiJaa.setDisable(true);
+            nappiTarkista.setDisable(false);
 
 
             // reunojen nollaus
@@ -193,6 +210,13 @@ public class Kontrolleri {
 
 
         });
+
+        nappiPanos.setOnAction(e -> {
+            logiikka.korotaPanosta();
+            tekstiPanos.setText("Panos: " + logiikka.getPanos());
+        });
+
+
 
 
 

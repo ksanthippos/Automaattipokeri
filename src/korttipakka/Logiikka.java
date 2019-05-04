@@ -20,11 +20,38 @@ public class Logiikka {
     private boolean suora;
     private boolean vari;
 
+    private double krediitit;
+    private double panos;
+
 
     public Logiikka(Käsi kasi) {
         this.arvonTarkistaja = new ArvonTarkistaja();
         this.maanTarkistaja = new MaanTarkistaja();
         this.kasi = kasi;
+        this.krediitit = 10.0;
+        this.panos = 1.0;
+    }
+
+    public void korotaPanosta() {
+        if (panos == 5.0)
+            panos = 0.5;
+
+        panos = panos + 0.5;
+    }
+
+    public double getPanos() {
+        return panos;
+    }
+
+    public void setKrediitit(double maara) {
+        if (krediitit - maara <= 0)
+            krediitit = 0;
+
+        krediitit = krediitit + maara;
+    }
+
+    public double getKrediitit() {
+        return krediitit;
     }
 
 
@@ -128,31 +155,62 @@ public class Logiikka {
         kasi.setAssienArvot(1);     // resetoidaan ässien arvot oletukseksi
 
         // tulokset
-        if (pari)
-            return "Pari!";
-        else if (kaksiParia)
-            return "Kaksi paria!";
-        else if (kolmoset)
-            return "Kolmoset!";
-        else if (neloset)
-            return "Neloset!";
-        else if (taysKasi)
-            return "Täyskäsi!";
-        else if (suora && !vari)
-            return "Suora!";
-        else if (vari && !suora)
-            return "Väri!";
-        else if (vari && suora) {
-            if (samatMaat.get(0).getMaa() == Maa.HERTTA)
-                return "WAU! Herttavärisuora!";
 
-            return "Värisuora!";
+
+        /* perusarvot:
+         * pari 0.5
+         * kaksi paria 1.0
+         * kolmoset 2.0
+         * neloset 3.0
+         * suora 3.0
+         * väri 4.0
+         * värisuora 8.0
+         * herttavärisuora 10.0
+         * */
+
+        if (pari) {
+            setKrediitit(1.0 * panos);
+            return "Pari.\nVoitit " + 1.0 * panos + " krediittiä!";
+        }
+        else if (kaksiParia) {
+            setKrediitit(1.5 * panos);
+            return "Kaksi paria.\nVoitit " + 1.5 * panos + " krediittiä!";
+        }
+        else if (kolmoset) {
+            setKrediitit(2.0 * panos);
+            return "Kolmoset.\nVoitit " + 2.0 * panos + " krediittiä!";
+        }
+        else if (neloset) {
+            krediitit += 3.0 * panos;
+            return "Neloset.\nVoitit " + 3.0 * panos + " krediittiä!";
+        }
+        else if (taysKasi) {
+            krediitit += 3.0 * panos;
+            return "Täyskäsi.\nVoitit " + 3.0 * panos + " krediittiä!";
+        }
+        else if (suora && !vari) {
+            krediitit += 4.0 * panos;
+            return "Suora.\nVoitit " + 4.0 * panos + " krediittiä!";
+        }
+        else if (vari && !suora) {
+            krediitit += 5.0 * panos;
+            return "Väri.\nVoitit " + 5.0 * panos + " krediittiä!";
+        }
+        else if (vari && suora) {
+            if (samatMaat.get(0).getMaa() == Maa.HERTTA) {
+                krediitit += 10.0 * panos;
+                return "HERTTAVÄRISUORA!.\nVoitit " + 10.0 * panos + " krediittiä!";
+            }
+            else {
+                krediitit += 8.0 * panos;
+                return "Värisuora!.\nVoitit " + 8.0 * panos + " krediittiä!";
+            }
         }
         else if (eiMitaan)
             return "Ei mitään.";
 
 
-        return "Tapahtui virhe, käden arvoa voitu laskea.";
+        return "";
 
     }
 
