@@ -32,12 +32,12 @@ public class Kortti implements Arvioitava {
 
     }
 
-/*    public void merkkaa(boolean arvo) {
+    public void merkkaa(boolean arvo) {
         if (arvo)
             kuva.setOpacity(0.7);
 
         kuva.setOpacity(1.0);
-    }*/
+    }
 
     public ImageView getKuva() {
         return kuva;

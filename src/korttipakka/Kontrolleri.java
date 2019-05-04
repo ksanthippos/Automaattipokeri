@@ -9,9 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
 
 public class Kontrolleri {
 
@@ -34,6 +32,7 @@ public class Kontrolleri {
         BorderPane alaOsa = new BorderPane();
         HBox kortit = new HBox();
         HBox napit = new HBox();
+        HBox ylaTekstit = new HBox();
         String punainenReuna = "-fx-border-color: red;";
         String vihreaReuna = "-fx-border-color: green;";
 
@@ -49,19 +48,16 @@ public class Kontrolleri {
 
         kortit.getChildren().addAll(kortti1, kortti2, kortti3, kortti4, kortti5);
         kortit.setSpacing(10);
-        keskiOsa.setCenter(kortit);
+        keskiOsa.setBottom(kortit);
 
 
         // *******************************
 
         // ********** ylä- ja alaosa **********
-        Label teksti1 = new Label();
         TextArea tekstiKentta = new TextArea();
-        tekstiKentta.setPrefSize(130, 150);
-        tekstiKentta.setFont(Font.font("Monospaced", 12));
+        tekstiKentta.setPrefSize(200, 20);
+        tekstiKentta.setFont(Font.font("Monospaced", 14));
 
-        ylaOsa.setLeft(teksti1);
-        ylaOsa.setRight(tekstiKentta);
 
         Button jaaKortit = new Button();
         Button tarkistaKasi = new Button();
@@ -70,14 +66,30 @@ public class Kontrolleri {
         tarkistaKasi.setText("Tarkista käsi");
         vaihdaKortit.setText("Lukitse valitut ja vaihda");
         napit.getChildren().addAll(jaaKortit, tarkistaKasi, vaihdaKortit);
-        napit.setSpacing(20);
+        napit.setSpacing(30);
 
         tarkistaKasi.setDisable(true);
         vaihdaKortit.setDisable(true);
 
 
-        alaOsa.setCenter(napit);
+        Label tekstiCredits = new Label();
+        tekstiCredits.setStyle("-fx-color: yellow;");
+        tekstiCredits.setText("Krediitit: 0");
+        tekstiCredits.setFont(Font.font("Monospaced", 18));
 
+        Label tekstiPanos = new Label();
+        tekstiPanos.setStyle("-fx-color: yellow;");
+        tekstiPanos.setText("Panos: 0");
+        tekstiPanos.setFont(Font.font("Monospaced", 18));
+
+        ylaTekstit.getChildren().addAll(tekstiCredits, tekstiPanos);
+        ylaTekstit.setSpacing(50);
+
+        alaOsa.setLeft(napit);
+        alaOsa.setRight(tekstiKentta);
+
+        ylaOsa.setStyle("-fx-background-color: white;");
+        ylaOsa.setCenter(ylaTekstit);
 
         // ************************************
 
@@ -114,7 +126,6 @@ public class Kontrolleri {
 
             for (int i = 0; i < 5; i++)
                 kasi.nostaKortti(pakka.jaaKortti());
-
 
 
             kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());

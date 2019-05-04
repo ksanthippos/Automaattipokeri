@@ -18,7 +18,7 @@ public class Kayttoliittyma extends Application {
 
         // päänäkymä
         BorderPane paaNakyma = new BorderPane();
-        paaNakyma.setPrefSize(700, 400);
+        paaNakyma.setPrefSize(650, 300);
 
         // pelilauta ja kontrollit
         Kontrolleri kontrolleri = new Kontrolleri();
