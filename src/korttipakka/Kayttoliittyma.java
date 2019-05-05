@@ -29,9 +29,10 @@ public class Kayttoliittyma extends Application {
         menuPeli.getItems().addAll(uusiPeli, lopetaPeli);
 
         Menu menuOhje = new Menu(("Ohje"));
-        MenuItem peliOhje = new MenuItem("Peliohjeet");
-        MenuItem peliTiedot = new MenuItem("Tiedot..");
-        menuOhje.getItems().addAll(peliOhje, peliTiedot);
+        MenuItem peliOhje = new MenuItem("Ohjeet");
+        MenuItem peliLahteet = new MenuItem("Lähdemateriaali");
+        MenuItem peliTiedot = new MenuItem("Pelin tiedot");
+        menuOhje.getItems().addAll(peliOhje, peliLahteet, peliTiedot);
 
         menuBar.getMenus().addAll(menuPeli, menuOhje);
 
@@ -54,13 +55,22 @@ public class Kayttoliittyma extends Application {
             info.setHeaderText("Peliohjeet");
             info.setContentText("Tämä peli imitoi raha-automaattipokereita, eli varsinaista tietokonevastustajaa ei ole. " +
                                 "Pelaajalle jaetaan 5 kortin käsi, josta voi vaihtaa yhden kerran 1 - 4 korttia pois. Tämän " +
-                                "jälkeen tarkista käsi - toiminnolla jaetaan mahdollinen voitonmaksu; peliä jakamalla uusi käsi.\n\n" +
-                                "Pelaaja voi muuttaa pelin panosta välillä 1.0 - 5.0 krediittiä, mikä vaikuttaa suoraan" +
+                                "jälkeen tarkista käsi - toiminnolla jaetaan mahdollinen voitonmaksu. " +
+                                "Pelaaja voi muuttaa pelin panosta välillä 1.0 - 5.0 krediittiä, mikä vaikuttaa suoraan " +
                                 "verrannollisesti mahdolliseen voitonmaksuun (panos x voitonmaksu).\n\n" +
                                 "Peli päättyy, kun krediitit ovat loppu.\n\n" +
                                 "Hyviä pelejä!");
             info.showAndWait();
 
+        });
+
+        peliLahteet.setOnAction(e -> {
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setHeaderText("Lähdemateriaali");
+            info.setContentText("Kasinoääniefektien lähde:\nhttps://opengameart.org/, lisenssillä CC0 1.0.\n\n" +
+                                "Pelin päättymisääniefektin lähde: https://freesound.org/people/ebcrosby/sounds/333496/, \n" +
+                                "tekijänä ebcrosby lisenssillä CC BY 3.0.");
+            info.showAndWait();
         });
 
         peliTiedot.setOnAction(e -> {
