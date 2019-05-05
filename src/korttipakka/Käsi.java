@@ -8,12 +8,14 @@ public class Käsi implements Arvioitava {
 
     private List<Kortti> kasi;
     private List<Kortti> valitut;
+    private List<Kortti> poistetut;
     private int ylaRaja;
 
 
     public Käsi(int ylaraja) {
         this.kasi = new ArrayList<>();
         this.valitut = new ArrayList<>();
+        this.poistetut = new ArrayList<>();
         this.ylaRaja = ylaraja;
     }
 
@@ -56,6 +58,12 @@ public class Käsi implements Arvioitava {
     public void nollaaValitut() {
         valitut.clear();
     }
+
+    public void lisaaPoistettu(Kortti kortti) {
+        poistetut.add(kortti);
+    }
+
+    public List<Kortti> getPoistetut() { return poistetut; }
 
 
     // ässien arvot pitää voida asettaa luokan ulkopuolelta

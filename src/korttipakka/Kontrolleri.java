@@ -27,6 +27,7 @@ public class Kontrolleri {
 
         // ******** pelialueen osat *************
         BorderPane paaAsettelu = new BorderPane();
+        paaAsettelu.setPrefSize(650, 350);
         BorderPane ylaOsa = new BorderPane();
         BorderPane keskiOsa = new BorderPane();
         BorderPane alaOsa = new BorderPane();
@@ -124,11 +125,18 @@ public class Kontrolleri {
             kortti4.getChildren().clear();
             kortti5.getChildren().clear();
 
+            // poistopakan kortit takaisin
+            for (Kortti kortti: kasi.getPoistetut())
+                pakka.lisaaKortti(kortti);
             pakka.sekoitaPakka();
+
+            kasi.getPoistetut().clear();
 
             for (int i = 0; i < 5; i++)
                 kasi.nostaKortti(pakka.jaaKortti());
 
+            // TESTI
+            System.out.println(pakka.getKortit().size());
 
             kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
             kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
@@ -193,7 +201,13 @@ public class Kontrolleri {
             kortti5.getChildren().clear();
 
 
-            // tyhjennetään käsi, lisätään sinne lukitut kortit ja täytetään loput pakasta
+            // lisätään ei-valitut väliaikaiseen poistopakkaan
+            for (Kortti kortti: kasi.getKortit()) {
+                if (kortti.getValittu())
+                    continue;
+                kasi.lisaaPoistettu(kortti);
+            }
+            //tyhjennetään käsi, lisätään sinne lukitut kortit ja täytetään loput pakasta
             kasi.lisaaValitut();
             kasi.getKortit().clear();
             for (Kortti kortti: kasi.getValitut())
