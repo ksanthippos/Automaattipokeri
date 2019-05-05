@@ -32,13 +32,17 @@ public class Kontrolleri {
         BorderPane ylaOsa = new BorderPane();
         BorderPane keskiOsa = new BorderPane();
         BorderPane alaOsa = new BorderPane();
+
         ylaOsa.setPrefSize(670, 40);
+        ylaOsa.setStyle("-fx-background-color: white;");
         ylaOsa.setPadding(new Insets(5, 10, 5, 10));
         keskiOsa.setPadding(new Insets(0, 10, 0, 10));
         alaOsa.setPadding(new Insets(10, 10, 10, 10));
+
         HBox kortit = new HBox();
         HBox napit = new HBox();
         HBox ylaTekstit = new HBox();
+
         String punainenReuna = "-fx-border-color: yellow; -fx-border-width: 0 2 2 0";
         String vihreaReuna = "-fx-border-color: green;";
 
@@ -60,10 +64,6 @@ public class Kontrolleri {
         // *******************************
 
         // ********** ylä- ja alaosa **********
-        TextArea tekstiKentta = new TextArea();
-        tekstiKentta.setPrefSize(220, 28);
-        tekstiKentta.setFont(Font.font("Monospaced", 12));
-
 
         Button nappiJaa = new Button();
         Button nappiTarkista = new Button();
@@ -81,6 +81,7 @@ public class Kontrolleri {
         nappiTarkista.setStyle("-fx-background-color: gold;");
         nappiVaihda.setStyle("-fx-background-color: coral;");
         nappiPanos.setStyle("-fx-background-color: cyan;");
+
         napit.getChildren().addAll(nappiJaa, nappiTarkista, nappiVaihda, nappiPanos);
         napit.setSpacing(40);
 
@@ -88,24 +89,27 @@ public class Kontrolleri {
         nappiTarkista.setDisable(true);
         nappiVaihda.setDisable(true);
 
+        TextArea tekstiKentta = new TextArea();
+        tekstiKentta.setPrefSize(220, 28);
+        tekstiKentta.setFont(Font.font("Monospaced", 12));
 
         Label tekstiKrediitit = new Label();
-        tekstiKrediitit.setStyle("-fx-color: yellow;");
         tekstiKrediitit.setText("Krediitit: " + logiikka.getKrediitit());
-        tekstiKrediitit.setFont(Font.font("Monospaced", 18));
+        tekstiKrediitit.setFont(Font.font("Monospaced", 15));
 
         Label tekstiPanos = new Label();
-        tekstiPanos.setStyle("-fx-color: yellow;");
         tekstiPanos.setText("Panos: " + logiikka.getPanos());
-        tekstiPanos.setFont(Font.font("Monospaced", 18));
+        tekstiPanos.setFont(Font.font("Monospaced", 15));
 
-        ylaTekstit.getChildren().addAll(tekstiKrediitit, tekstiPanos, tekstiKentta);
-        ylaTekstit.setSpacing(75);
+        Label tekstiPisteet = new Label();
+        tekstiPisteet.setText("Pisteet: " + logiikka.getPisteet());
+        tekstiPisteet.setFont(Font.font("Monospaced", 15));
+
+        ylaTekstit.getChildren().addAll(tekstiKrediitit, tekstiPanos, tekstiPisteet, tekstiKentta);
+        ylaTekstit.setSpacing(30);
+
 
         alaOsa.setCenter(napit);
-
-
-        ylaOsa.setStyle("-fx-background-color: white;");
         ylaOsa.setCenter(ylaTekstit);
 
         // ************************************
@@ -166,6 +170,7 @@ public class Kontrolleri {
 
             logiikka.setKrediitit(-logiikka.getPanos());
             tekstiKrediitit.setText("Krediitit: " + logiikka.getKrediitit());
+            tekstiPisteet.setText("Pisteet: " + logiikka.getPisteet());
 
         });
 
@@ -193,6 +198,7 @@ public class Kontrolleri {
             tekstiPanos.setText("Panos: " + logiikka.getPanos());
 
             tekstiKrediitit.setText("Krediitit: " + logiikka.getKrediitit());
+            tekstiPisteet.setText("Pisteet: " + logiikka.getPisteet());
 
             if (logiikka.getKrediitit() <= 0) {
                 tekstiKentta.appendText("Peli loppui!");

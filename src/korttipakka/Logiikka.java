@@ -25,6 +25,7 @@ public class Logiikka {
     private double krediitit;
     private double panos;
     private double panoksenYlaraja;
+    private int pisteet;
 
 
     public Logiikka(Käsi kasi) {
@@ -34,6 +35,7 @@ public class Logiikka {
         this.krediitit = 10.0;
         this.panos = 1.0;
         this.panoksenYlaraja = 5.0;
+        this.pisteet = 0;
     }
 
     public void korotaPanosta() {
@@ -66,6 +68,20 @@ public class Logiikka {
         return krediitit;
     }
 
+    public void annaPisteet() {
+        pisteet = pisteet + (int) krediitit * (int) panos;
+    }
+
+    public void annaPisteet(int maara) {
+        pisteet = pisteet + maara;
+
+        // jos saa esim yli 100 pistettä, voisi laittaa jonkun palikan siihen?
+
+    }
+
+    public int getPisteet() {
+        return pisteet;
+    }
 
 
     public String tarkistaKasi() {
@@ -181,8 +197,8 @@ public class Logiikka {
          * neloset 3.0
          * suora 3.0
          * väri 4.0
-         * värisuora 8.0
-         * herttavärisuora 10.0
+         * värisuora 8.0 (pisteitä 75)
+         * herttavärisuora 10.0 (pisteitä 100)
          * */
 
         if (pari) {
@@ -196,42 +212,50 @@ public class Logiikka {
         }
         else if (kaksiParia) {
             setKrediitit(1.0 * panos);
+            annaPisteet();
             voitonMaksu.play();
             return "Kaksi paria.\nVoitit " + 1.0 * panos + " krediittiä!";
         }
         else if (kolmoset) {
             setKrediitit(2.0 * panos);
+            annaPisteet();
             voitonMaksu.play();
             return "Kolmoset.\nVoitit " + 2.0 * panos + " krediittiä!";
         }
         else if (neloset) {
             krediitit += 3.0 * panos;
+            annaPisteet();
             voitonMaksu.play();
             return "Neloset.\nVoitit " + 3.0 * panos + " krediittiä!";
         }
         else if (taysKasi) {
             krediitit += 3.0 * panos;
+            annaPisteet();
             voitonMaksu.play();
             return "Täyskäsi.\nVoitit " + 3.0 * panos + " krediittiä!";
         }
         else if (suora && !vari) {
             krediitit += 4.0 * panos;
+            annaPisteet();
             voitonMaksu.play();
             return "Suora.\nVoitit " + 4.0 * panos + " krediittiä!";
         }
         else if (vari && !suora) {
             krediitit += 5.0 * panos;
+            annaPisteet();
             voitonMaksu.play();
             return "Väri.\nVoitit " + 5.0 * panos + " krediittiä!";
         }
         else if (vari && suora) {
             if (samatMaat.get(0).getMaa() == Maa.HERTTA) {
                 krediitit += 10.0 * panos;
+                annaPisteet(150);
                 voitonMaksu.play();
                 return "HERTTAVÄRISUORA!.\nVoitit " + 10.0 * panos + " krediittiä!";
             }
             else {
                 krediitit += 8.0 * panos;
+                annaPisteet(75);
                 voitonMaksu.play();
                 return "Värisuora!.\nVoitit " + 8.0 * panos + " krediittiä!";
             }
@@ -245,7 +269,9 @@ public class Logiikka {
             return "Ei mitään.";
         }
 
+
         return "";
+
 
     }
 
