@@ -68,8 +68,17 @@ public class Kontrolleri {
         nappiTarkista.setText("Tarkista käsi");
         nappiVaihda.setText("Lukitse ja vaihda");
         nappiPanos.setText("Panos");
+        nappiJaa.setFont(Font.font("Monospaced"));
+        nappiTarkista.setFont(Font.font("Monospaced"));
+        nappiVaihda.setFont(Font.font("Monospaced"));
+        nappiPanos.setFont(Font.font("Monospaced"));
+        nappiJaa.setStyle("-fx-background-color: lime;");
+        nappiTarkista.setStyle("-fx-background-color: gold;");
+        nappiVaihda.setStyle("-fx-background-color: tomato;");
+        nappiPanos.setStyle("-fx-background-color: cyan;");
         napit.getChildren().addAll(nappiJaa, nappiTarkista, nappiVaihda, nappiPanos);
-        napit.setSpacing(33);
+        napit.setSpacing(40);
+
 
         nappiTarkista.setDisable(true);
         nappiVaihda.setDisable(true);
@@ -85,11 +94,11 @@ public class Kontrolleri {
         tekstiPanos.setText("Panos: " + logiikka.getPanos());
         tekstiPanos.setFont(Font.font("Monospaced", 18));
 
-        ylaTekstit.getChildren().addAll(tekstiKrediitit, tekstiPanos);
+        ylaTekstit.getChildren().addAll(tekstiKrediitit, tekstiPanos, tekstiKentta);
         ylaTekstit.setSpacing(50);
 
         alaOsa.setLeft(napit);
-        alaOsa.setRight(tekstiKentta);
+
 
         ylaOsa.setStyle("-fx-background-color: white;");
         ylaOsa.setCenter(ylaTekstit);
@@ -143,8 +152,6 @@ public class Kontrolleri {
             for (int i = 0; i < 5; i++)
                 kasi.nostaKortti(pakka.jaaKortti());
 
-            // TESTI
-            System.out.println(pakka.getKortit().size());
 
             kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
             kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
