@@ -1,5 +1,6 @@
 package korttipakka;
 
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,10 +28,14 @@ public class Kontrolleri {
 
         // ******** pelialueen osat *************
         BorderPane paaAsettelu = new BorderPane();
-        paaAsettelu.setPrefSize(650, 350);
+        paaAsettelu.setPrefSize(670, 350);
         BorderPane ylaOsa = new BorderPane();
         BorderPane keskiOsa = new BorderPane();
         BorderPane alaOsa = new BorderPane();
+        ylaOsa.setPrefSize(670, 40);
+        ylaOsa.setPadding(new Insets(5, 10, 5, 10));
+        keskiOsa.setPadding(new Insets(0, 10, 0, 10));
+        alaOsa.setPadding(new Insets(10, 10, 10, 10));
         HBox kortit = new HBox();
         HBox napit = new HBox();
         HBox ylaTekstit = new HBox();
@@ -56,7 +61,7 @@ public class Kontrolleri {
 
         // ********** ylä- ja alaosa **********
         TextArea tekstiKentta = new TextArea();
-        tekstiKentta.setPrefSize(220, 25);
+        tekstiKentta.setPrefSize(220, 28);
         tekstiKentta.setFont(Font.font("Monospaced", 12));
 
 
@@ -95,7 +100,7 @@ public class Kontrolleri {
         tekstiPanos.setFont(Font.font("Monospaced", 18));
 
         ylaTekstit.getChildren().addAll(tekstiKrediitit, tekstiPanos, tekstiKentta);
-        ylaTekstit.setSpacing(50);
+        ylaTekstit.setSpacing(75);
 
         alaOsa.setLeft(napit);
 
