@@ -77,12 +77,12 @@ public class Kontrolleri {
 
         Label tekstiKrediitit = new Label();
         tekstiKrediitit.setStyle("-fx-color: yellow;");
-        tekstiKrediitit.setText("Krediitit: 10.0");
+        tekstiKrediitit.setText("Krediitit: " + logiikka.getKrediitit());
         tekstiKrediitit.setFont(Font.font("Monospaced", 18));
 
         Label tekstiPanos = new Label();
         tekstiPanos.setStyle("-fx-color: yellow;");
-        tekstiPanos.setText("Panos: 1.0");
+        tekstiPanos.setText("Panos: " + logiikka.getPanos());
         tekstiPanos.setFont(Font.font("Monospaced", 18));
 
         ylaTekstit.getChildren().addAll(tekstiKrediitit, tekstiPanos);
@@ -174,6 +174,9 @@ public class Kontrolleri {
             kasi.getKortit().clear();
             kasi.nollaaValitut();
 
+            // varmistus, ettei panos ylitä krediittien määrää ja tilanteen päivitys
+            logiikka.setPanos();
+            tekstiPanos.setText("Panos: " + logiikka.getPanos());
 
             tekstiKrediitit.setText("Krediitit: " + logiikka.getKrediitit());
 

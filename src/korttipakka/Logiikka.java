@@ -24,6 +24,7 @@ public class Logiikka {
 
     private double krediitit;
     private double panos;
+    private double panoksenYlaraja;
 
 
     public Logiikka(Käsi kasi) {
@@ -32,13 +33,22 @@ public class Logiikka {
         this.kasi = kasi;
         this.krediitit = 10.0;
         this.panos = 1.0;
+        this.panoksenYlaraja = 5.0;
     }
 
     public void korotaPanosta() {
-        if (panos == 5.0)
+        if (panoksenYlaraja > krediitit)
+            panoksenYlaraja = krediitit;
+
+        if (panos == panoksenYlaraja)
             panos = 0;
 
         panos = panos + 1.0;
+    }
+
+    public void setPanos() {
+        if (panos > krediitit)
+            panos = krediitit;
     }
 
     public double getPanos() {
@@ -46,10 +56,10 @@ public class Logiikka {
     }
 
     public void setKrediitit(double maara) {
-        if (krediitit - maara <= 0)
+        if (maara < 0 && krediitit + maara < 0)
             krediitit = 0;
-
-        krediitit = krediitit + maara;
+        else
+            krediitit = krediitit + maara;
     }
 
     public double getKrediitit() {
