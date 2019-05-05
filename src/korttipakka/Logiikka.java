@@ -70,6 +70,9 @@ public class Logiikka {
         vari = false;
 
         AudioClip voitonMaksu = new AudioClip("file:src/aanet/chipsHandle6.wav");
+        AudioClip eiVoittoa = new AudioClip("file:src/aanet/cardShove4.wav");
+        AudioClip havioHuokaus = new AudioClip("file:src/aanet/loseSigh.wav");
+
 
         // jos kädessä kuningas, niin ässän arvo 14
         for (int i = 0; i < kasi.getKoko(); i++) {
@@ -173,8 +176,12 @@ public class Logiikka {
          * */
 
         if (pari) {
-            if (krediitit == 0)
+            if (krediitit == 0) {
+                havioHuokaus.play();
                 return "Pari.\nPeli loppui!";
+            }
+
+            eiVoittoa.play();
             return "Pari.\nEt voittanut mitään.";
         }
         else if (kaksiParia) {
@@ -219,9 +226,14 @@ public class Logiikka {
                 return "Värisuora!.\nVoitit " + 8.0 * panos + " krediittiä!";
             }
         }
-        else if (eiMitaan)
+        else if (eiMitaan) {
+            if (krediitit == 0) {
+                havioHuokaus.play();
+                return "Ei mitään.\nPeli loppui!";
+            }
+            eiVoittoa.play();
             return "Ei mitään.";
-
+        }
 
         return "";
 

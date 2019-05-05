@@ -101,6 +101,7 @@ public class Kontrolleri {
         AudioClip jaaKortti = new AudioClip("file:src/aanet/cardPlace2.wav");
         AudioClip valitseKortti = new AudioClip("file:src/aanet/cardSlide1.wav");
         AudioClip poistaKortit = new AudioClip("file:src/aanet/cardPlace4.wav");
+        AudioClip korotaPanos = new AudioClip("file:src/aanet/chipsStack1.wav");
 
 
         // ***********************************
@@ -237,6 +238,7 @@ public class Kontrolleri {
 
         nappiPanos.setOnAction(e -> {
             logiikka.korotaPanosta();
+            korotaPanos.play();
             tekstiPanos.setText("Panos: " + logiikka.getPanos());
         });
 
