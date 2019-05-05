@@ -79,7 +79,7 @@ public class Kontrolleri {
         nappiPanos.setFont(Font.font("Monospaced"));
         nappiJaa.setStyle("-fx-background-color: lime;");
         nappiTarkista.setStyle("-fx-background-color: gold;");
-        nappiVaihda.setStyle("-fx-background-color: tomato;");
+        nappiVaihda.setStyle("-fx-background-color: coral;");
         nappiPanos.setStyle("-fx-background-color: cyan;");
         napit.getChildren().addAll(nappiJaa, nappiTarkista, nappiVaihda, nappiPanos);
         napit.setSpacing(40);
@@ -102,7 +102,7 @@ public class Kontrolleri {
         ylaTekstit.getChildren().addAll(tekstiKrediitit, tekstiPanos, tekstiKentta);
         ylaTekstit.setSpacing(75);
 
-        alaOsa.setLeft(napit);
+        alaOsa.setCenter(napit);
 
 
         ylaOsa.setStyle("-fx-background-color: white;");
@@ -147,7 +147,7 @@ public class Kontrolleri {
             kortti4.getChildren().clear();
             kortti5.getChildren().clear();
 
-            // poistopakan kortit takaisin
+            // poistopakan korttien palautus
             for (Kortti kortti: kasi.getPoistetut())
                 pakka.lisaaKortti(kortti);
             pakka.sekoitaPakka();
@@ -184,7 +184,7 @@ public class Kontrolleri {
 
 
             kasi.getKortit().clear();
-            kasi.nollaaValitut();
+            kasi.getValitut().clear();
 
             // varmistus, ettei panos ylitä krediittien määrää ja tilanteen päivitys
             logiikka.setPanos();
@@ -226,14 +226,15 @@ public class Kontrolleri {
             kortti5.getChildren().clear();
 
 
-            // lisätään ei-valitut väliaikaiseen poistopakkaan
+            // jaotellaan käden kortit valittuihin ja poistettaviin
             for (Kortti kortti: kasi.getKortit()) {
                 if (kortti.getValittu())
-                    continue;
-                kasi.lisaaPoistettu(kortti);
+                    kasi.lisaaValittu(kortti);
+                else
+                    kasi.lisaaPoistettu(kortti);
             }
+
             //tyhjennetään käsi, lisätään sinne lukitut kortit ja täytetään loput pakasta
-            kasi.lisaaValitut();
             kasi.getKortit().clear();
             for (Kortti kortti: kasi.getValitut())
                 kasi.nostaKortti(kortti);

@@ -44,20 +44,13 @@ public class Käsi implements Arvioitava {
 
     public List<Kortti> getKortit() { return kasi; }
 
-    public void lisaaValitut() {
-        for (Kortti kortti: kasi) {
-            if (kortti.getValittu())
-                valitut.add(kortti);
-        }
-    }
+
+    public void lisaaValittu(Kortti kortti) { valitut.add(kortti); }
 
     public List<Kortti> getValitut() {
         return valitut;
     }
 
-    public void nollaaValitut() {
-        valitut.clear();
-    }
 
     public void lisaaPoistettu(Kortti kortti) {
         poistetut.add(kortti);
