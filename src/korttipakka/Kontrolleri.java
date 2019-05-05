@@ -186,6 +186,7 @@ public class Kontrolleri {
             kasi.getKortit().clear();
             kasi.getValitut().clear();
             kasi.getPoistetut().clear();
+            pakka.getKortit().stream().forEach(kortti -> kortti.setValittu(false));
 
             // varmistus, ettei panos ylitä krediittien määrää ja tilanteen päivitys
             logiikka.setPanos();
@@ -234,10 +235,6 @@ public class Kontrolleri {
                 else
                     kasi.lisaaPoistettu(kortti);
             }
-            System.out.println("Valitut:");
-            kasi.getValitut().stream().forEach(kortti -> System.out.println(kortti));
-            System.out.println("Poistetut:");
-            kasi.getPoistetut().stream().forEach(kortti -> System.out.println(kortti));
 
             //tyhjennetään käsi, lisätään sinne lukitut kortit ja täytetään loput pakasta
             kasi.getKortit().clear();
