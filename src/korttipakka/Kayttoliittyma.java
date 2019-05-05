@@ -2,11 +2,13 @@ package korttipakka;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 
@@ -15,6 +17,8 @@ public class Kayttoliittyma extends Application {
 
 
     public void start(Stage ikkuna) {
+
+        AudioClip plarays = new AudioClip("file:src/aanet/cardFan1.wav");
 
         // valikot ja niiden toiminnallisuus
         MenuBar menuBar = new MenuBar();
@@ -32,6 +36,7 @@ public class Kayttoliittyma extends Application {
         menuBar.getMenus().addAll(menuPeli, menuOhje);
 
         uusiPeli.setOnAction(e -> {
+            plarays.play();
             BorderPane paaNakyma = new BorderPane();
             Kontrolleri kontrolli = new Kontrolleri();
             paaNakyma.setTop(menuBar);
@@ -45,10 +50,24 @@ public class Kayttoliittyma extends Application {
         });
 
         peliOhje.setOnAction(e -> {
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setHeaderText("Peliohjeet");
+            info.setContentText("Tämä peli imitoi raha-automaattipokereita, eli varsinaista tietokonevastustajaa ei ole. " +
+                                "Pelaajalle jaetaan 5 kortin käsi, josta voi vaihtaa yhden kerran 1 - 4 korttia pois. Tämän " +
+                                "jälkeen tarkista käsi - toiminnolla jaetaan mahdollinen voitonmaksu; peliä jakamalla uusi käsi.\n\n" +
+                                "Pelaaja voi muuttaa pelin panosta välillä 1.0 - 5.0 krediittiä, mikä vaikuttaa suoraan" +
+                                "verrannollisesti mahdolliseen voitonmaksuun (panos x voitonmaksu).\n\n" +
+                                "Peli päättyy, kun krediitit ovat loppu.\n\n" +
+                                "Hyviä pelejä!");
+            info.showAndWait();
 
         });
 
         peliTiedot.setOnAction(e -> {
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setHeaderText("MR-Automaattipokeri v.1.0");
+            info.setContentText("(c) Mikael Rauhala, 2019");
+            info.showAndWait();
 
         });
 
@@ -62,7 +81,7 @@ public class Kayttoliittyma extends Application {
         paaNakyma.setCenter(kontrolleri.getPeliAlue());
         paaNakyma.setTop(menuBar);
 
-
+        plarays.play();
         ikkuna.setScene(new Scene(paaNakyma));
         ikkuna.show();
 

@@ -1,5 +1,7 @@
 package korttipakka;
 
+import javafx.scene.media.AudioClip;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,6 +68,8 @@ public class Logiikka {
         taysKasi = false;
         suora = false;
         vari = false;
+
+        AudioClip voitonMaksu = new AudioClip("file:src/aanet/chipsHandle6.wav");
 
         // jos kädessä kuningas, niin ässän arvo 14
         for (int i = 0; i < kasi.getKoko(); i++) {
@@ -175,35 +179,43 @@ public class Logiikka {
         }
         else if (kaksiParia) {
             setKrediitit(1.0 * panos);
+            voitonMaksu.play();
             return "Kaksi paria.\nVoitit " + 1.0 * panos + " krediittiä!";
         }
         else if (kolmoset) {
             setKrediitit(2.0 * panos);
+            voitonMaksu.play();
             return "Kolmoset.\nVoitit " + 2.0 * panos + " krediittiä!";
         }
         else if (neloset) {
             krediitit += 3.0 * panos;
+            voitonMaksu.play();
             return "Neloset.\nVoitit " + 3.0 * panos + " krediittiä!";
         }
         else if (taysKasi) {
             krediitit += 3.0 * panos;
+            voitonMaksu.play();
             return "Täyskäsi.\nVoitit " + 3.0 * panos + " krediittiä!";
         }
         else if (suora && !vari) {
             krediitit += 4.0 * panos;
+            voitonMaksu.play();
             return "Suora.\nVoitit " + 4.0 * panos + " krediittiä!";
         }
         else if (vari && !suora) {
             krediitit += 5.0 * panos;
+            voitonMaksu.play();
             return "Väri.\nVoitit " + 5.0 * panos + " krediittiä!";
         }
         else if (vari && suora) {
             if (samatMaat.get(0).getMaa() == Maa.HERTTA) {
                 krediitit += 10.0 * panos;
+                voitonMaksu.play();
                 return "HERTTAVÄRISUORA!.\nVoitit " + 10.0 * panos + " krediittiä!";
             }
             else {
                 krediitit += 8.0 * panos;
+                voitonMaksu.play();
                 return "Värisuora!.\nVoitit " + 8.0 * panos + " krediittiä!";
             }
         }

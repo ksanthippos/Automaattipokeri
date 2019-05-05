@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-
+import javafx.scene.media.AudioClip;
 
 
 public class Kontrolleri {
@@ -96,6 +96,11 @@ public class Kontrolleri {
 
         // ************************************
 
+        // äääniefektit
+
+        AudioClip jaaKortti = new AudioClip("file:src/aanet/cardPlace2.wav");
+        AudioClip valitseKortti = new AudioClip("file:src/aanet/cardSlide1.wav");
+        AudioClip poistaKortit = new AudioClip("file:src/aanet/cardPlace4.wav");
 
 
         // ***********************************
@@ -103,6 +108,8 @@ public class Kontrolleri {
         // **********************************
 
         nappiJaa.setOnAction(e -> {
+
+            jaaKortti.play();
 
             tekstiKentta.clear();
             nappiJaa.setDisable(true);
@@ -182,6 +189,8 @@ public class Kontrolleri {
 
         nappiVaihda.setOnAction(e -> {
 
+            poistaKortit.play();
+
             nappiVaihda.setDisable(true);
             nappiJaa.setDisable(true);
             nappiTarkista.setDisable(false);
@@ -239,6 +248,7 @@ public class Kontrolleri {
 
         // korttien klikkaaminen
         kortti1.setOnMouseClicked(e -> {
+            valitseKortti.play();
             if (kortti1.getStyle().equals(vihreaReuna)) {
                 kortti1.setStyle(punainenReuna);
                 kasi.getKortit().get(0).setValittu(true);
@@ -249,6 +259,7 @@ public class Kontrolleri {
             }
         });
         kortti2.setOnMouseClicked(e -> {
+            valitseKortti.play();
             if (kortti2.getStyle().equals(vihreaReuna)) {
                 kortti2.setStyle(punainenReuna);
                 kasi.getKortit().get(1).setValittu(true);
@@ -259,6 +270,7 @@ public class Kontrolleri {
             }
         });
         kortti3.setOnMouseClicked(e -> {
+            valitseKortti.play();
             if (kortti3.getStyle().equals(vihreaReuna)) {
                 kortti3.setStyle(punainenReuna);
                 kasi.getKortit().get(2).setValittu(true);
@@ -270,6 +282,7 @@ public class Kontrolleri {
             }
         });
         kortti4.setOnMouseClicked(e -> {
+            valitseKortti.play();
             if (kortti4.getStyle().equals(vihreaReuna)) {
                 kortti4.setStyle(punainenReuna);
                 kasi.getKortit().get(3).setValittu(true);
@@ -281,6 +294,7 @@ public class Kontrolleri {
             }
         });
         kortti5.setOnMouseClicked(e -> {
+            valitseKortti.play();
             if (kortti5.getStyle().equals(vihreaReuna)) {
                 kortti5.setStyle(punainenReuna);
                 kasi.getKortit().get(4).setValittu(true);
