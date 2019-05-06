@@ -127,7 +127,7 @@ public class Kontrolleri {
 
 
         // ***********************************
-        // erilliset napit eri toiminnoille
+        // pelinappien toiminnot
         // **********************************
 
         nappiJaa.setOnAction(e -> {
@@ -155,16 +155,11 @@ public class Kontrolleri {
             kortti4.getChildren().clear();
             kortti5.getChildren().clear();
 
-            // poistopakan korttien palautus
-            for (Kortti kortti: kasi.getPoistetut())
-                pakka.lisaaKortti(kortti);
+
+            // uuden käden jakaminen
             pakka.sekoitaPakka();
-
-            kasi.getPoistetut().clear();
-
             for (int i = 0; i < 5; i++)
                 kasi.nostaKortti(pakka.jaaKortti());
-
 
             kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
             kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
@@ -188,14 +183,22 @@ public class Kontrolleri {
             // käden tarkistaminen
             tekstiKentta.appendText(logiikka.tarkistaKasi() + "\n");
 
+
+            // pelikäden palautus ja nollaus, valittujen nollaus
             for (int i = 0; i < 5; i++)
                 pakka.lisaaKortti(kasi.lyoEkaKortti());
 
-
             kasi.getKortit().clear();
             kasi.getValitut().clear();
+
+            // poistokäden palautus ja nollaus
+            for (Kortti kortti: kasi.getPoistetut())
+                pakka.lisaaKortti(kortti);
+
             kasi.getPoistetut().clear();
-            pakka.getKortit().stream().forEach(kortti -> kortti.setValittu(false));
+            for (Kortti kortti: pakka.getKortit())
+                kortti.setValittu(false);
+
 
             // varmistus, ettei panos ylitä krediittien määrää ja tilanteen päivitys
             logiikka.setPanos();
@@ -211,7 +214,6 @@ public class Kontrolleri {
                 nappiJaa.setDisable(true);
                 nappiPanos.setDisable(true);
             }
-
 
         });
 
