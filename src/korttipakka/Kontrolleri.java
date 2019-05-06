@@ -11,6 +11,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.media.AudioClip;
 
+import java.net.URL;
+
 
 public class Kontrolleri {
 
@@ -116,10 +118,12 @@ public class Kontrolleri {
 
         // äääniefektit
 
-        AudioClip jaaKortti = new AudioClip("file:src/aanet/cardPlace2.wav");
-        AudioClip valitseKortti = new AudioClip("file:src/aanet/cardSlide1.wav");
-        AudioClip poistaKortit = new AudioClip("file:src/aanet/cardPlace4.wav");
-        AudioClip korotaPanos = new AudioClip("file:src/aanet/chipsStack1.wav");
+
+
+        AudioClip jaaKortti = new AudioClip(getClass().getResource("/aanet/cardPlace2.wav").toString());
+        AudioClip valitseKortti = new AudioClip(getClass().getResource("/aanet/cardSlide1.wav").toString());
+        AudioClip poistaKortit = new AudioClip(getClass().getResource("/aanet/cardPlace4.wav").toString());
+        AudioClip korotaPanos = new AudioClip(getClass().getResource("/aanet/chipsStack1.wav").toString());
 
 
         // ***********************************
@@ -344,7 +348,6 @@ public class Kontrolleri {
         return paaAsettelu;
 
     }
-
 
 
 

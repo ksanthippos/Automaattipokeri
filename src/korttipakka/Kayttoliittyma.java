@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
+import java.net.URL;
 
 
 public class Kayttoliittyma extends Application {
@@ -18,7 +19,7 @@ public class Kayttoliittyma extends Application {
 
     public void start(Stage ikkuna) {
 
-        AudioClip plarays = new AudioClip("file:src/aanet/cardFan1.wav");
+        AudioClip plarays = new AudioClip(getClass().getResource("/aanet/cardFan1.wav").toString());
 
         // valikot ja niiden toiminnallisuus
         MenuBar menuBar = new MenuBar();

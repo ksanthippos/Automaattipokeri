@@ -95,9 +95,9 @@ public class Logiikka {
         suora = false;
         vari = false;
 
-        AudioClip voitonMaksu = new AudioClip("file:src/aanet/chipsHandle6.wav");
-        AudioClip eiVoittoa = new AudioClip("file:src/aanet/cardShove4.wav");
-        AudioClip havioHuokaus = new AudioClip("file:src/aanet/gameOver.wav");
+        AudioClip voitonMaksu = new AudioClip(getClass().getResource("/aanet/chipsHandle6.wav").toString());
+        AudioClip eiVoittoa = new AudioClip(getClass().getResource("/aanet/cardShove4.wav").toString());
+        AudioClip havioHuokaus = new AudioClip(getClass().getResource("/aanet/gameOver.wav").toString());
 
 
         // jos kädessä kuningas, niin ässän arvo 14
