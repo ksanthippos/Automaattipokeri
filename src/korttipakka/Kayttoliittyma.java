@@ -11,7 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
-import java.net.URL;
+
 
 
 public class Kayttoliittyma extends Application {
@@ -55,11 +55,10 @@ public class Kayttoliittyma extends Application {
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setHeaderText("Peliohjeet");
             info.setContentText("Tämä peli imitoi raha-automaattipokereita, eli varsinaista tietokonevastustajaa ei ole. " +
-                                "Pelaajalle jaetaan 5 kortin käsi, josta voi vaihtaa yhden kerran 1 - 4 korttia pois. Tämän " +
-                                "jälkeen tarkista käsi - toiminnolla jaetaan mahdollinen voitonmaksu. " +
-                                "Pelaaja voi muuttaa pelin panosta välillä 1.0 - 5.0 krediittiä, mikä vaikuttaa suoraan " +
+                                "Pelaajalle jaetaan 5 kortin käsi, josta voi vaihtaa yhden kerran halutun määrän kortteja pois. Tämän " +
+                                "jälkeen tarkista käsi - toiminnolla jaetaan mahdollinen voitonmaksu ja jatketaan peliä, mikäli " +
+                                "krediittejä on vielä jäljellä. Pelaaja voi muuttaa pelin panosta välillä 1.0 - 5.0 krediittiä, mikä vaikuttaa suoraan " +
                                 "verrannollisesti mahdolliseen voitonmaksuun (panos x voitonmaksu).\n\n" +
-                                "Peli päättyy, kun krediitit ovat loppu.\n\n" +
                                 "Hyviä pelejä!");
             info.showAndWait();
 
