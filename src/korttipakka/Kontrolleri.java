@@ -160,6 +160,7 @@ public class Kontrolleri {
             for (int i = 0; i < 5; i++)
                 kasi.nostaKortti(pakka.jaaKortti());
 
+
             kortti1.getChildren().add(kasi.getKortit().get(0).getKuva());
             kortti2.getChildren().add(kasi.getKortit().get(1).getKuva());
             kortti3.getChildren().add(kasi.getKortit().get(2).getKuva());

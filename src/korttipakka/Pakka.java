@@ -176,6 +176,21 @@ public class Pakka {
         return jaettava;
     }
 
+    // TESTAUSTA VARTEN
+    public Kortti jaaTiettyKortti(Kortti haettava) {
+
+        for (Kortti k: pakka)
+            if (k.equals(haettava)) {
+                Kortti palautettava = k;
+                pakka.remove(k);
+                return palautettava;
+            }
+
+        return null;
+    }
+
+
+
     public void lisaaKortti(Kortti kortti) {
         if (pakka.size() <= 52)
             pakka.add(kortti);  // laittaa kortin pakan pohjalle

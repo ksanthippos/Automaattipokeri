@@ -4,10 +4,12 @@ import javafx.scene.media.AudioClip;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Logiikka {
+
 
     private ArvonTarkistaja arvonTarkistaja;
     private MaanTarkistaja maanTarkistaja;
@@ -15,6 +17,8 @@ public class Logiikka {
 
     private boolean eiMitaan;
     private boolean pari;
+    private boolean kunkkuPari;
+    private boolean assaPari;
     private boolean kaksiParia;
     private boolean kolmoset;
     private boolean neloset;
@@ -75,8 +79,6 @@ public class Logiikka {
     public void annaPisteet(int maara) {
         pisteet = pisteet + maara;
 
-        // jos saa esim yli 100 pistettä, voisi laittaa jonkun palikan siihen?
-
     }
 
     public int getPisteet() {
@@ -88,6 +90,8 @@ public class Logiikka {
 
         eiMitaan = false;
         pari = false;
+        kunkkuPari = false;
+        assaPari = false;
         kaksiParia = false;
         kolmoset = false;
         neloset = false;
@@ -130,6 +134,23 @@ public class Logiikka {
         List<Kortti> samatArvot = samojaArvoja.stream().distinct().collect(Collectors.toList());
         List<Kortti> samatMaat = samojaMaita.stream().distinct().collect(Collectors.toList());
 
+        // käsi vielä varmuuden vuoksi järjestykseen siten, että ässä ekana, jos ei kunkkua kädessä
+        boolean tsekkaaAssat = true;
+
+        for (Kortti k: kasi.getKortit()) {
+            if (k.getArvo() == Arvo.KUNKKU) {
+                tsekkaaAssat = false;
+                break;
+            }
+        }
+        if (tsekkaaAssat) {
+            // siirretään ässä ekaksi kortiksi
+            Collections.swap(kasi.getKortit(), 3, 4);
+            Collections.swap(kasi.getKortit(), 2, 3);
+            Collections.swap(kasi.getKortit(), 1, 2);
+            Collections.swap(kasi.getKortit(), 0, 1);
+        }
+
 
         // ***** KÄDEN TARKISTAMINEN *****
 
@@ -144,9 +165,17 @@ public class Logiikka {
         if (onSuora)
             suora = true;
 
+        // pitää lisätä vielä kunkku- ja ässäpari, joista saa pisteet!
+
         // parit, kolmoset, neloset, täyskäsi
-        else if (samatArvot.size() == 2)
-            pari = true;
+        else if (samatArvot.size() == 2) {
+            if (samatArvot.get(0).annaArvo() == 13)
+                kunkkuPari = true;
+            else if (samatArvot.get(0).annaArvo() == 1 || samatArvot.get(0).annaArvo() == 14)
+                assaPari = true;
+            else
+                pari = true;
+        }
         else if (samatArvot.size() == 3)
             kolmoset = true;
         else if (samatArvot.size() == 4) {
@@ -187,64 +216,65 @@ public class Logiikka {
 
         kasi.setAssienArvot(1);     // resetoidaan ässien arvot oletukseksi
 
+        // *****************************
         // tulosten käsittely
-
-        /* voittosummat:
-
-         * pari ei voittoa
-         * kaksi paria 1.0
-         * kolmoset 2.0
-         * neloset 3.0
-         * suora 3.0
-         * väri 4.0
-         * värisuora 8.0 (pisteitä 75)
-         * herttavärisuora 10.0 (pisteitä 100)
-         * */
+        // *****************************
 
         if (pari) {
             if (krediitit == 0) {
                 havioHuokaus.play();
                 return "Pari.\nPeli loppui!";
             }
-
             eiVoittoa.play();
             return "Pari.\nEt voittanut mitään.";
         }
-        else if (kaksiParia) {
+        else if (kunkkuPari) {
             setKrediitit(1.0 * panos);
             annaPisteet();
             voitonMaksu.play();
-            return "Kaksi paria.\nVoitit " + 1.0 * panos + " krediittiä!";
+            return "Kunkkupari.\nVoitit " + 1.0 * panos + " krediittiä!";
         }
-        else if (kolmoset) {
+        else if (assaPari) {
+            setKrediitit(1.0 * panos);
+            annaPisteet();
+            voitonMaksu.play();
+            return "Ässäpari.\nVoitit " + 1.0 * panos + " krediittiä!";
+        }
+        else if (kaksiParia) {
             setKrediitit(2.0 * panos);
             annaPisteet();
             voitonMaksu.play();
-            return "Kolmoset.\nVoitit " + 2.0 * panos + " krediittiä!";
+            return "Kaksi paria.\nVoitit " + 2.0 * panos + " krediittiä!";
+        }
+        else if (kolmoset) {
+            setKrediitit(3.0 * panos);
+            annaPisteet();
+            voitonMaksu.play();
+            return "Kolmoset.\nVoitit " + 3.0 * panos + " krediittiä!";
         }
         else if (neloset) {
-            krediitit += 3.0 * panos;
-            annaPisteet();
-            voitonMaksu.play();
-            return "Neloset.\nVoitit " + 3.0 * panos + " krediittiä!";
-        }
-        else if (taysKasi) {
-            krediitit += 3.0 * panos;
-            annaPisteet();
-            voitonMaksu.play();
-            return "Täyskäsi.\nVoitit " + 3.0 * panos + " krediittiä!";
-        }
-        else if (suora && !vari) {
-            krediitit += 4.0 * panos;
-            annaPisteet();
-            voitonMaksu.play();
-            return "Suora.\nVoitit " + 4.0 * panos + " krediittiä!";
-        }
-        else if (vari && !suora) {
             krediitit += 5.0 * panos;
             annaPisteet();
             voitonMaksu.play();
-            return "Väri.\nVoitit " + 5.0 * panos + " krediittiä!";
+            return "Neloset.\nVoitit " + 5.0 * panos + " krediittiä!";
+        }
+        else if (taysKasi) {
+            krediitit += 5.0 * panos;
+            annaPisteet();
+            voitonMaksu.play();
+            return "Täyskäsi.\nVoitit " + 5.0 * panos + " krediittiä!";
+        }
+        else if (suora && !vari) {
+            krediitit += 6.0 * panos;
+            annaPisteet();
+            voitonMaksu.play();
+            return "Suora.\nVoitit " + 6.0 * panos + " krediittiä!";
+        }
+        else if (vari && !suora) {
+            krediitit += 7.0 * panos;
+            annaPisteet();
+            voitonMaksu.play();
+            return "Väri.\nVoitit " + 7.0 * panos + " krediittiä!";
         }
         else if (vari && suora) {
             if (samatMaat.get(0).getMaa() == Maa.HERTTA) {

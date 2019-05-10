@@ -34,16 +34,15 @@ public class Käsi implements Arvioitava {
         return lyotava;
     }
 
+    public void asetaPaallimmaiseksi(Kortti kortti) {
+        kasi.add(0, kortti);
+    }
+
     public int getKoko() {
         return (int)(kasi.stream().count());
     }
 
-    public int getYlaRaja() {
-        return ylaRaja;
-    }
-
     public List<Kortti> getKortit() { return kasi; }
-
 
     public void lisaaValittu(Kortti kortti) { valitut.add(kortti); }
 
